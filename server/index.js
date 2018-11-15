@@ -1,7 +1,15 @@
 require('@babel/polyfill');
 require('@babel/register')({
-  ignore: [/\/(build|node_modules)\//],
-  presets: ['@babel/preset-env', '@babel/preset-react']
+  presets: ['@babel/preset-env', '@babel/preset-react'],
+  plugins: [
+    'babel-plugin-inline-svg',
+    [
+      'babel-plugin-transform-require-ignore',
+      {
+        extensions: ['.css']
+      }
+    ]
+  ]
 });
 
 require('./server');
