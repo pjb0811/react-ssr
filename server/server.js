@@ -5,18 +5,13 @@ import renderer from './renderer';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const indexHTML = fs.readFileSync('build/index.html', 'utf8');
 
 app.use(express.static('build', { index: [] }));
 
-app.all('*', (req, res) => {
-  fs.readFile('build/index.html', 'utf8', async (err, data) => {
-    if (err) {
-      throw err;
-    }
-
-    const html = await renderer(data);
-    res.send(pretty(html));
-  });
+app.all('*', async (req, res) => {
+  const html = await renderer(indexHTML);
+  res.send(pretty(html));
 });
 
 app.listen(PORT, console.log(`App listening on port ${PORT}!`));
