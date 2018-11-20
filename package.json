@@ -8,9 +8,9 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
     "serve": "cross-env PORT=9000 nodemon server/index.js"
   },
@@ -32,7 +32,6 @@
     "babel-plugin-inline-svg": "^1.0.0",
     "babel-plugin-transform-require-ignore": "^0.1.1",
     "express": "^4.16.4",
-    "pretty": "^2.0.0",
-    "react-app-rewired": "^1.6.2"
+    "pretty": "^2.0.0"
   }
 }
