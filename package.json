@@ -13,7 +13,7 @@
     "build:serve": "babel src --out-dir build.server --copy-files",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "cross-env PORT=9000 nodemon server/index.js"
+    "serve": "yarn build && yarn build:serve && cross-env PORT=9000 nodemon server/index.js"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,6 +32,13 @@
     "babel-plugin-inline-svg": "^1.0.0",
     "babel-plugin-transform-require-ignore": "^0.1.1",
     "express": "^4.16.4",
-    "pretty": "^2.0.0"
+    "isomorphic-fetch": "^2.2.1",
+    "pretty": "^2.0.0",
+    "react-redux": "^5.1.1",
+    "react-router-config": "^4.4.0-beta.6",
+    "react-router-dom": "^4.3.1",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "serialize-javascript": "^1.5.0"
   }
 }
