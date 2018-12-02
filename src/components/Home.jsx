@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Layout from './Layout';
 
 class Home extends Component {
   render() {
     return (
       <div>
-        <Header />
         <div>home</div>
       </div>
     );
   }
 }
 
-export default Home;
+export default Layout(Home);
