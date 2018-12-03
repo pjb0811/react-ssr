@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Header from './Header';
+import Layout from './Layout';
 import loadData from '../lib/loadData';
 
 class Posts extends Component {
@@ -23,7 +23,6 @@ class Posts extends Component {
 
     return (
       <div>
-        <Header />
         <div>posts</div>
         <div>{JSON.stringify(data)}</div>
       </div>
@@ -31,4 +30,4 @@ class Posts extends Component {
   }
 }
 
-export default Posts;
+export default Layout(Posts);

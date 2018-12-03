@@ -11,6 +11,9 @@ const Layout = Page => {
               <NavLink to="/">home</NavLink>
             </li>
             <li>
+              <NavLink to="/about">about</NavLink>
+            </li>
+            <li>
               <NavLink to="/posts">posts</NavLink>
             </li>
             <li>

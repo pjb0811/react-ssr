@@ -7,13 +7,15 @@ import routes from './routes';
 // import { matchRoutes } from 'react-router-config';
 
 const renderer = async ({ req, html }) => {
-  /* const matchingRoutes = matchRoutes(routes, req.url);
+  /*
+  const matchingRoutes = matchRoutes(routes, req.url);
   const promises = matchingRoutes.map(async ({ route }) => {
     const { loadData } = route;
     return loadData ? await loadData(req.url) : await Promise.resolve(null);
   });
   const [data] = await Promise.all(promises);
-  const context = { data }; */
+  const context = { data };
+  */
 
   const currentRoute = routes.find(route => matchPath(req.url, route)) || {};
   const data = currentRoute.loadData
@@ -33,7 +35,7 @@ const renderer = async ({ req, html }) => {
       .replace('<div id="root"></div>', `<div id="root">${app}</div>`)
       .replace(
         '</body>',
-        `<script>window.__ROUTE_DATA__ = ${serialize(data)}</script></body>`
+        `<script>window.__INITIAL_STATE__ = ${serialize(data)}</script></body>`
       ),
     context
   };
