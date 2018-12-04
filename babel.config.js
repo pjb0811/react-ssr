@@ -10,7 +10,8 @@ module.exports = function(api) {
       {
         extensions: ['.css']
       }
-    ]
+    ],
+    '@babel/plugin-syntax-dynamic-import'
   ];
 
   return {

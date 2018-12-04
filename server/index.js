@@ -1,7 +1,16 @@
+require('@babel/register')({
+  plugins: [
+    '@babel/syntax-dynamic-import',
+    'dynamic-import-node',
+    'react-loadable/babel'
+  ]
+});
+
 const express = require('express');
 const fs = require('fs');
 const pretty = require('pretty');
 const renderer = require('../build.server/lib/renderer');
+const Loadable = require('react-loadable');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -23,4 +32,6 @@ app.all('*', async (req, res) => {
   res.send(pretty(html));
 });
 
-app.listen(PORT, console.log(`App listening on port ${PORT}!`));
+Loadable.preloadAll().then(() => {
+  app.listen(PORT, console.log(`App listening on port ${PORT}!`));
+});

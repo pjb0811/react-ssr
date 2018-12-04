@@ -4,6 +4,8 @@ import { StaticRouter, matchPath } from 'react-router-dom';
 import serialize from 'serialize-javascript';
 import App from '../App';
 import routes from './routes';
+import Loadable from 'react-loadable';
+
 // import { matchRoutes } from 'react-router-config';
 
 const renderer = async ({ req, html }) => {
@@ -23,11 +25,14 @@ const renderer = async ({ req, html }) => {
     : await Promise.resolve(null);
 
   const context = { data };
+  let modules = [];
 
   const app = renderToString(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>
+    <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Loadable.Capture>
   );
 
   return {

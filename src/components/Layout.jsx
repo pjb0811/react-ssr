@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const Layout = Page => {
   return class Layout extends Component {
@@ -8,16 +8,22 @@ const Layout = Page => {
         <div>
           <ul>
             <li>
-              <NavLink to="/">home</NavLink>
+              <Link to="/">home</Link>
             </li>
             <li>
-              <NavLink to="/about">about</NavLink>
+              <Link to="/about">about</Link>
             </li>
             <li>
-              <NavLink to="/posts">posts</NavLink>
+              <Link to="/posts">posts</Link>
             </li>
             <li>
-              <NavLink to="/posts/1">posts/1</NavLink>
+              <Link to="/posts/1">posts/1</Link>
+            </li>
+            <li>
+              <Link to="/posts?name=test">posts?name=test</Link>
+            </li>
+            <li>
+              <Link to="/posts/1?name=test">posts/1?name=test</Link>
             </li>
           </ul>
           <Page {...this.props} />
