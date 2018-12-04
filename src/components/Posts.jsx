@@ -20,14 +20,14 @@ class Posts extends Component {
   }
 
   render() {
-    // const { data } = this.state;
+    const { data } = this.state;
     const { location, match } = this.props;
 
     return (
       <div>
         <div>{JSON.stringify(match)}</div>
         <div>{JSON.stringify(queryString.parse(location.search))}</div>
-        {/* <div>{JSON.stringify(data)}</div> */}
+        <div>{JSON.stringify(data)}</div>
       </div>
     );
   }
