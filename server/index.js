@@ -25,8 +25,8 @@ app.all('*', async (req, res) => {
     res.status(404);
   }
 
-  if (context.status === 302) {
-    return res.redirect(302, context.url);
+  if (context.status === 301) {
+    return res.redirect(301, context.url);
   }
 
   res.send(pretty(html));

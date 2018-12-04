@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from './Layout';
+import withLayout from './withLayout';
 import loadData from '../lib/loadData';
 import queryString from 'query-string';
 
@@ -20,17 +20,17 @@ class Posts extends Component {
   }
 
   render() {
-    const { data } = this.state;
+    // const { data } = this.state;
     const { location, match } = this.props;
 
     return (
       <div>
         <div>{JSON.stringify(match)}</div>
         <div>{JSON.stringify(queryString.parse(location.search))}</div>
-        <div>{JSON.stringify(data)}</div>
+        {/* <div>{JSON.stringify(data)}</div> */}
       </div>
     );
   }
 }
 
-export default Layout(Posts);
+export default withLayout(Posts);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Layout from './Layout';
+import withLayout from './withLayout';
 
 class About extends Component {
   render() {
@@ -11,4 +11,4 @@ class About extends Component {
   }
 }
 
-export default Layout(About);
+export default withLayout(About);

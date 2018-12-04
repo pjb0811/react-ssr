@@ -1,6 +1,10 @@
+import React from 'react';
 import loadData from './loadData';
-import Loading from '../components/Loading';
 import Loadable from 'react-loadable';
+
+const loading = () => {
+  return <div>loading...</div>;
+};
 
 const Routes = [
   {
@@ -10,7 +14,7 @@ const Routes = [
       loader: () => import('../components/Home'),
       modules: ['../components/Home'],
       webpack: () => [require.resolveWeak('../components/Home')],
-      loading: Loading
+      loading
     })
   },
   {
@@ -19,7 +23,7 @@ const Routes = [
       loader: () => import('../components/About'),
       modules: ['../components/About'],
       webpack: () => [require.resolveWeak('../components/About')],
-      loading: Loading
+      loading
     })
   },
   {
@@ -28,7 +32,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       modules: ['../components/Posts'],
       webpack: () => [require.resolveWeak('../components/Posts')],
-      loading: Loading
+      loading
     }),
     loadData: async path => await loadData(path)
   },
@@ -38,7 +42,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       modules: ['../components/Posts'],
       webpack: () => [require.resolveWeak('../components/Posts')],
-      loading: Loading
+      loading
     }),
     loadData: async path => await loadData(path)
   },
@@ -48,7 +52,7 @@ const Routes = [
       loader: () => import('../components/Redirect'),
       modules: ['../components/Redirect'],
       webpack: () => [require.resolveWeak('../components/Redirect')],
-      loading: Loading
+      loading
     })
   },
   {
@@ -57,7 +61,7 @@ const Routes = [
       loader: () => import('../components/NotFound'),
       modules: ['../components/NotFound'],
       webpack: () => [require.resolveWeak('../components/NotFound')],
-      loading: Loading
+      loading
     })
   }
 ];

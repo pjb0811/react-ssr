@@ -1,14 +1,8 @@
-import React, { Component } from 'react';
-import Layout from './Layout';
+import React from 'react';
+import withLayout from './withLayout';
 
-class Home extends Component {
-  render() {
-    return (
-      <div>
-        <div>home</div>
-      </div>
-    );
-  }
-}
+const Home = () => {
+  return <div>home</div>;
+};
 
-export default Layout(Home);
+export default withLayout(Home);

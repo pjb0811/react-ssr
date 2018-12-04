@@ -6,7 +6,7 @@ const RedirectRoute = () => {
     <Route
       render={({ staticContext }) => {
         if (staticContext) {
-          staticContext.status = 302;
+          staticContext.status = 301;
         }
         return <Redirect from="/post" to="/posts" />;
       }}

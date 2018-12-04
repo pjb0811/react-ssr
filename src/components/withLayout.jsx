@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-const Layout = Page => {
+const withLayout = Page => {
   return class Layout extends Component {
     render() {
       return (
@@ -33,4 +33,4 @@ const Layout = Page => {
   };
 };
 
-export default Layout;
+export default withLayout;
