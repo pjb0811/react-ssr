@@ -1,11 +1,3 @@
-require('@babel/register')({
-  plugins: [
-    '@babel/syntax-dynamic-import',
-    'dynamic-import-node',
-    'react-loadable/babel'
-  ]
-});
-
 const express = require('express');
 const fs = require('fs');
 const pretty = require('pretty');

@@ -11,7 +11,9 @@ module.exports = function(api) {
         extensions: ['.css']
       }
     ],
-    '@babel/plugin-syntax-dynamic-import'
+    '@babel/syntax-dynamic-import',
+    'dynamic-import-node',
+    'react-loadable/babel'
   ];
 
   return {

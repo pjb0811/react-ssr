@@ -8,11 +8,11 @@
     "react-scripts": "2.1.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
     "build:serve": "babel src --out-dir build.server --copy-files",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject",
     "serve": "yarn build && yarn build:serve && cross-env PORT=9000 nodemon server/index.js"
   },
   "eslintConfig": {
@@ -28,7 +28,6 @@
     "@babel/plugin-transform-runtime": "^7.1.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.0.0",
     "axios": "^0.18.0",
     "babel-plugin-inline-svg": "^1.0.0",
     "babel-plugin-transform-require-ignore": "^0.1.1",
@@ -36,6 +35,7 @@
     "isomorphic-fetch": "^2.2.1",
     "pretty": "^2.0.0",
     "query-string": "^6.2.0",
+    "react-app-rewired": "^1.6.2",
     "react-loadable": "^5.5.0",
     "react-redux": "^5.1.1",
     "react-router-config": "^4.4.0-beta.6",

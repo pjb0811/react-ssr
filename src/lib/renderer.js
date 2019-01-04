@@ -5,6 +5,8 @@ import serialize from 'serialize-javascript';
 import App from '../App';
 import routes from './routes';
 import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
+import stats from '../../build/react-loadable.json';
 
 // import { matchRoutes } from 'react-router-config';
 
@@ -35,12 +37,18 @@ const renderer = async ({ req, html }) => {
     </Loadable.Capture>
   );
 
+  let bundles = getBundles(stats, modules);
+
   return {
     html: html
       .replace('<div id="root"></div>', `<div id="root">${app}</div>`)
       .replace(
         '</body>',
-        `<script>window.__INITIAL_STATE__ = ${serialize(data)}</script></body>`
+        `${bundles
+          .filter(bundle => !bundle.file.includes('.map'))
+          .map(bundle => `<script src="${bundle.publicPath}"></script>`)
+          .join('\n')}
+        <script>window.__INITIAL_STATE__ = ${serialize(data)}</script></body>`
       ),
     context
   };
