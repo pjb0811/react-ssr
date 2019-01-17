@@ -18,46 +18,46 @@ const Routes = [
     exact: true,
     component: Loadable({
       loader: () => import('../components/Home'),
-      loading
-    })
+      loading,
+    }),
   },
   {
     path: '/about',
     component: Loadable({
       loader: () => import('../components/About'),
-      loading
-    })
+      loading,
+    }),
   },
   {
     path: '/posts/:id',
     component: Loadable({
       loader: () => import('../components/Posts'),
-      loading
+      loading,
     }),
-    loadData: async path => await loadData(path)
+    loadData: async path => await loadData(path),
   },
   {
     path: '/posts',
     component: Loadable({
       loader: () => import('../components/Posts'),
-      loading
+      loading,
     }),
-    loadData: async path => await loadData(path)
+    loadData: async path => await loadData(path),
   },
   {
     path: '/post',
     component: Loadable({
       loader: () => import('../components/Redirect'),
-      loading
-    })
+      loading,
+    }),
   },
   {
     path: '*',
     component: Loadable({
       loader: () => import('../components/NotFound'),
-      loading
-    })
-  }
+      loading,
+    }),
+  },
 ];
 
 export default Routes;

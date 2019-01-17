@@ -1,33 +1,39 @@
 import React, { Component } from 'react';
 import withLayout from './withLayout';
 import loadData from '../lib/loadData';
-import queryString from 'query-string';
+// import queryString from 'query-string';
 
 class Posts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      data: props.staticContext ? props.staticContext.data : {}
-    };
-  }
+  state = {
+    data: null,
+  };
 
-  async componentDidMount() {
+  componentDidMount() {
     const { url } = this.props.match;
-    const data = await loadData(url);
-    this.setState({
-      data
-    });
+    let data;
+
+    setTimeout(async () => {
+      if (window.__ROUTE_DATA__) {
+        data = window.__ROUTE_DATA__;
+        window.__ROUTE_DATA__ = null;
+      } else {
+        data = await loadData(url);
+      }
+      this.setState({
+        data,
+      });
+    }, 0);
   }
 
   render() {
-    // const { data } = this.state;
-    const { location, match } = this.props;
+    const { data } = this.state;
+    // const { location, match } = this.props;
 
     return (
       <div>
-        <div>{JSON.stringify(match)}</div>
-        <div>{JSON.stringify(queryString.parse(location.search))}</div>
-        {/* <div>{JSON.stringify(data)}</div> */}
+        {/* <div>{JSON.stringify(match)}</div>
+        <div>{JSON.stringify(queryString.parse(location.search))}</div> */}
+        <div>{JSON.stringify(data)}</div>
       </div>
     );
   }

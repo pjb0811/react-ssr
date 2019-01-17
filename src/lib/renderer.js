@@ -1,13 +1,12 @@
 import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { StaticRouter, matchPath } from 'react-router-dom';
-import serialize from 'serialize-javascript';
 import App from '../App';
 import routes from './routes';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import stats from '../../build/react-loadable.json';
-
+// import serialize from 'serialize-javascript';
 // import { matchRoutes } from 'react-router-config';
 
 const renderer = async ({ req, html }) => {
@@ -48,9 +47,9 @@ const renderer = async ({ req, html }) => {
           .filter(bundle => !bundle.file.includes('.map'))
           .map(bundle => `<script src="${bundle.publicPath}"></script>`)
           .join('\n')}
-        <script>window.__INITIAL_STATE__ = ${serialize(data)}</script></body>`
+        <script>window.__ROUTE_DATA__ = ${JSON.stringify(data)}</script></body>`
       ),
-    context
+    context,
   };
 };
 
