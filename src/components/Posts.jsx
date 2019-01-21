@@ -4,25 +4,27 @@ import loadData from '../lib/loadData';
 // import queryString from 'query-string';
 
 class Posts extends Component {
-  state = {
-    data: null,
-  };
+  constructor(props) {
+    super(props);
+    const { staticContext } = this.props;
+    this.state = {
+      data: staticContext ? staticContext.data : {},
+    };
+  }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { url } = this.props.match;
     let data;
 
-    setTimeout(async () => {
-      if (window.__ROUTE_DATA__) {
-        data = window.__ROUTE_DATA__;
-        window.__ROUTE_DATA__ = null;
-      } else {
-        data = await loadData(url);
-      }
-      this.setState({
-        data,
-      });
-    }, 0);
+    if (window.__ROUTE_DATA__) {
+      data = window.__ROUTE_DATA__;
+      window.__ROUTE_DATA__ = null;
+    } else {
+      data = await loadData(url);
+    }
+    this.setState({
+      data,
+    });
   }
 
   render() {

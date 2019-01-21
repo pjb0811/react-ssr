@@ -11,6 +11,19 @@ ReactDOM.render(
   </BrowserRouter>,
   document.getElementById('root')
 );
+
+/*
+const renderMethod = !!module.hot ? ReactDOM.render : ReactDOM.hydrate;
+const render = Component => {
+  renderMethod(
+    <BrowserRouter>
+      <Component />
+    </BrowserRouter>,
+    document.getElementById('root')
+  );
+};
+*/
+
 // Loadable.preloadReady().then(() => {
 // });
 
