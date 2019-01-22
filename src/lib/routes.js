@@ -14,6 +14,8 @@ const loading = () => {
   return <div>loading...</div>;
 };
 
+const initStore = store();
+
 const Routes = [
   {
     path: '/',
@@ -36,7 +38,10 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => await store.dispatch(postActions.getPost(path)),
+    loadData: async path => {
+      await initStore.dispatch(postActions.getPost(path));
+      return initStore.getState();
+    },
   },
   {
     path: '/posts',
@@ -44,7 +49,10 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => await store.dispatch(postActions.getPost(path)),
+    loadData: async path => {
+      await initStore.dispatch(postActions.getPost(path));
+      return initStore.getState();
+    },
   },
   {
     path: '/post',

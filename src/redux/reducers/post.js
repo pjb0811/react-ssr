@@ -1,5 +1,5 @@
 import { handleActions } from 'redux-actions';
-import { Map, List } from 'immutable';
+// import { Map, List } from 'immutable';
 import loadData from '../../lib/loadData';
 
 const GET_POST = 'GET_POST';
@@ -12,7 +12,7 @@ export const getPost = path => ({
   payload: loadData(path),
 });
 
-const initialState = Map({
+/* const initialState = Map({
   pending: false,
   error: false,
   data: List([
@@ -22,11 +22,23 @@ const initialState = Map({
     }),
   ]),
 });
+ */
+
+const initialState = {
+  pending: false,
+  error: false,
+  data: [],
+};
 
 export default handleActions(
   {
     [GET_POST_PENDING]: state => {
-      return state.set('pending', true).set('error', false);
+      return {
+        ...state,
+        pending: true,
+        error: false,
+      };
+      // return state.set('pending', true).set('error', false);
     },
 
     [GET_POST_SUCCESS]: (state, action) => {
@@ -34,7 +46,13 @@ export default handleActions(
         ? action.payload
         : [action.payload];
 
-      return state
+      return {
+        pending: false,
+        error: false,
+        data,
+      };
+
+      /* return state
         .set('pending', false)
         .set('error', false)
         .set(
@@ -47,10 +65,15 @@ export default handleActions(
               })
             ),
           ])
-        );
+        ); */
     },
     [GET_POST_FAILURE]: state => {
-      return state.set('pending', false).set('error', true);
+      return {
+        ...state,
+        pending: false,
+        error: true,
+      };
+      // return state.set('pending', false).set('error', true);
     },
   },
   initialState

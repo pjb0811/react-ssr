@@ -23,17 +23,18 @@ const renderer = async ({ req, html }) => {
   */
 
   const currentRoute = routes.find(route => matchPath(req.url, route)) || {};
-  currentRoute.loadData
+  const initState = currentRoute.loadData
     ? await currentRoute.loadData(req.url)
-    : await Promise.resolve(null);
+    : {};
+  const initStore = store(initState);
 
-  const context = { data: serialize(store.getState()) };
+  const context = {};
   let modules = [];
 
   const app = renderToString(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <StaticRouter location={req.url} context={context}>
-        <Provider store={store}>
+        <Provider store={initStore}>
           <App />
         </Provider>
       </StaticRouter>
@@ -47,7 +48,9 @@ const renderer = async ({ req, html }) => {
       .replace(
         '<div id="root"></div>',
         `<div id="root">${app}</div>
-        <script>window.__ROUTE_DATA__ = ${serialize(store.getState())}</script>`
+        <script>window.__INIT_DATA__ = ${serialize(
+          initStore.getState()
+        )}</script>`
       )
       .replace(
         '</body>',

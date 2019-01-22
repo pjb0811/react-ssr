@@ -8,33 +8,33 @@ import * as postActions from '../redux/reducers/post';
 import Counter from './Counter';
 
 class Posts extends Component {
-  constructor(props) {
+  /* constructor(props) {
     super(props);
     const { staticContext } = this.props;
     this.state = {
-      data: staticContext ? staticContext.data : {},
+      data: staticContext ? staticContext.data : null,
     };
-  }
+    // console.log(this.props);
+  } */
 
   async componentDidMount() {
     // const { PostActions, match } = this.props;
     // const { url } = match;
     // await PostActions.getPost(url);
-
     /* const { PostActions, match } = this.props;
     const { url } = match;
     let data;
 
-    if (window.__ROUTE_DATA__) {
-      data = window.__ROUTE_DATA__;
-      window.__ROUTE_DATA__ = null;
+    if (window.__INIT_DATA__) {
+      data = window.__INIT_DATA__;
+      window.__INIT_DATA__ = null;
     } else {
       await PostActions.getPost(url);
     } */
-    const { PostActions, match } = this.props;
-    const { url } = match;
-    await PostActions.getPost(url);
-
+    // const { PostActions, match } = this.props;
+    // const { url } = match;
+    // console.log(window.__INIT_DATA__);
+    // await PostActions.getPost(url);
     /*  this.setState({
       data,
     }); */
@@ -63,7 +63,7 @@ class Posts extends Component {
 
 export default connect(
   state => ({
-    post: state.post.toJS(),
+    post: state.post,
   }),
   dispatch => ({
     PostActions: bindActionCreators(postActions, dispatch),

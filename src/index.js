@@ -9,7 +9,7 @@ import store from './redux/store';
 
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={store(window.__INIT_DATA__ || {})}>
       <App />
     </Provider>
   </BrowserRouter>,
