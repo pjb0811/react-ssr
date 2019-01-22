@@ -3,12 +3,13 @@ import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 import promiseMiddleware from 'redux-promise-middleware';
 
-const customizedPromiseMiddleware = promiseMiddleware({
-  promiseTypeSuffixes: ['PENDING', 'SUCCESS', 'FAILURE'],
-});
-
 const createStoreWithMiddleware = compose(
-  applyMiddleware(ReduxThunk, customizedPromiseMiddleware)
+  applyMiddleware(
+    ReduxThunk,
+    promiseMiddleware({
+      promiseTypeSuffixes: ['LOADING', 'SUCCESS', 'ERROR'],
+    })
+  )
 )(createStore);
 
 export default function(initialState = {}) {

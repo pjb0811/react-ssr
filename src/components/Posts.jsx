@@ -14,14 +14,17 @@ class Posts extends Component {
     this.state = {
       data: staticContext ? staticContext.data : null,
     };
-    // console.log(this.props);
   } */
 
   async componentDidMount() {
-    // const { PostActions, match } = this.props;
-    // const { url } = match;
-    // await PostActions.getPost(url);
-    /* const { PostActions, match } = this.props;
+    const { post, PostActions, match } = this.props;
+
+    if (!post.data.length) {
+      await PostActions.getPost(match.url);
+    }
+
+    /*
+    const { PostActions, match } = this.props;
     const { url } = match;
     let data;
 
@@ -30,14 +33,12 @@ class Posts extends Component {
       window.__INIT_DATA__ = null;
     } else {
       await PostActions.getPost(url);
-    } */
-    // const { PostActions, match } = this.props;
-    // const { url } = match;
-    // console.log(window.__INIT_DATA__);
-    // await PostActions.getPost(url);
-    /*  this.setState({
+    }
+
+    this.setState({
       data,
-    }); */
+    });
+    */
   }
 
   render() {

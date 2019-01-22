@@ -3,9 +3,9 @@ import { handleActions } from 'redux-actions';
 import loadData from '../../lib/loadData';
 
 const GET_POST = 'GET_POST';
-const GET_POST_PENDING = 'GET_POST_PENDING';
+const GET_POST_PENDING = 'GET_POST_LOADING';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
-const GET_POST_FAILURE = 'GET_POST_FAILURE';
+const GET_POST_FAILURE = 'GET_POST_ERROR';
 
 export const getPost = path => ({
   type: GET_POST,
