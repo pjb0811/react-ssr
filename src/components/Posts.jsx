@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
 import withLayout from './withLayout';
-import loadData from '../lib/loadData';
+// import loadData from '../lib/loadData';
 // import queryString from 'query-string';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as postActions from '../redux/reducers/post';
+import Counter from './Counter';
 
 class Posts extends Component {
   constructor(props) {
@@ -13,32 +17,55 @@ class Posts extends Component {
   }
 
   async componentDidMount() {
-    const { url } = this.props.match;
+    // const { PostActions, match } = this.props;
+    // const { url } = match;
+    // await PostActions.getPost(url);
+
+    /* const { PostActions, match } = this.props;
+    const { url } = match;
     let data;
 
     if (window.__ROUTE_DATA__) {
       data = window.__ROUTE_DATA__;
       window.__ROUTE_DATA__ = null;
     } else {
-      data = await loadData(url);
-    }
-    this.setState({
+      await PostActions.getPost(url);
+    } */
+    const { PostActions, match } = this.props;
+    const { url } = match;
+    await PostActions.getPost(url);
+
+    /*  this.setState({
       data,
-    });
+    }); */
   }
 
   render() {
-    const { data } = this.state;
+    // const { data } = this.state;
     // const { location, match } = this.props;
+    const { post } = this.props;
 
     return (
       <div>
-        {/* <div>{JSON.stringify(match)}</div>
-        <div>{JSON.stringify(queryString.parse(location.search))}</div> */}
-        <div>{JSON.stringify(data)}</div>
+        {/*
+        <div>{JSON.stringify(match)}</div>
+        <div>{JSON.stringify(queryString.parse(location.search))}</div>
+        */}
+        <h1>Post</h1>
+        <Counter />
+        {post.data.map((item, i) => (
+          <div key={i}>{item.title}</div>
+        ))}
       </div>
     );
   }
 }
 
-export default withLayout(Posts);
+export default connect(
+  state => ({
+    post: state.post.toJS(),
+  }),
+  dispatch => ({
+    PostActions: bindActionCreators(postActions, dispatch),
+  })
+)(withLayout(Posts));

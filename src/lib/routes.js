@@ -1,6 +1,8 @@
 import React from 'react';
-import loadData from './loadData';
+// import loadData from './loadData';
 import Loadable from 'react-loadable';
+import store from '../redux/store';
+import * as postActions from '../redux/reducers/post';
 
 // import Home from '../components/Home'
 // import About from '../components/About'
@@ -34,7 +36,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => await loadData(path),
+    loadData: async path => await store.dispatch(postActions.getPost(path)),
   },
   {
     path: '/posts',
@@ -42,7 +44,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => await loadData(path),
+    loadData: async path => await store.dispatch(postActions.getPost(path)),
   },
   {
     path: '/post',
