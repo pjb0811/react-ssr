@@ -2,8 +2,21 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as counterActions from '../redux/reducers/counter';
+import * as postActions from '../redux/reducers/post';
 
 class Counter extends Component {
+  /*
+  static getDerivedStateFromProps(nextProps) {
+    const { counter, PostActions } = nextProps;
+
+    PostActions.getPost(`/posts/${counter}`);
+
+    return null;
+  }
+  */
+
+  state = {};
+
   render() {
     const { counter, CounterActions } = this.props;
 
@@ -23,5 +36,6 @@ export default connect(
   }),
   dispatch => ({
     CounterActions: bindActionCreators(counterActions, dispatch),
+    PostActions: bindActionCreators(postActions, dispatch),
   })
 )(Counter);

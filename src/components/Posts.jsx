@@ -17,9 +17,11 @@ class Posts extends Component {
   } */
 
   async componentDidMount() {
-    const { post, PostActions, match } = this.props;
+    const { PostActions, match } = this.props;
 
-    if (!post.data.length) {
+    if (window.__INIT_DATA__) {
+      window.__INIT_DATA__ = null;
+    } else {
       await PostActions.getPost(match.url);
     }
 
