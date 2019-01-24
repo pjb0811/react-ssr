@@ -18,10 +18,14 @@ export const decrementAsync = () => dispatch => {
   }, 1000);
 };
 
+const initialState = {
+  count: 1
+};
+
 export default handleActions(
   {
-    [INCREMENT]: state => state + 1,
-    [DECREMENT]: state => state - 1,
+    [INCREMENT]: state => ({ count: state.count + 1}),
+    [DECREMENT]: state => ({ count: state.count - 1}),
   },
-  1
+  initialState
 );

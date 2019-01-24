@@ -14,4 +14,7 @@ const createStoreWithMiddleware = compose(
 
 export default function(initialState = {}) {
   return createStoreWithMiddleware(reducers, initialState);
+  /* return createStore(
+    reducers
+  ) */
 }

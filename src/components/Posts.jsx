@@ -5,7 +5,6 @@ import withLayout from './withLayout';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as postActions from '../redux/reducers/post';
-import Counter from './Counter';
 
 class Posts extends Component {
   /* constructor(props) {
@@ -54,8 +53,6 @@ class Posts extends Component {
         <div>{JSON.stringify(match)}</div>
         <div>{JSON.stringify(queryString.parse(location.search))}</div>
         */}
-        <h1>Post</h1>
-        <Counter />
         {post.data.map((item, i) => (
           <div key={i}>{item.title}</div>
         ))}

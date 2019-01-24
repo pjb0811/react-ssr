@@ -17,12 +17,18 @@ class Counter extends Component {
 
   state = {};
 
+  componentDidMount() {
+    if (window.__INIT_DATA__) {
+      window.__INIT_DATA__ = null;
+    }
+  }
+
   render() {
     const { counter, CounterActions } = this.props;
 
     return (
       <div>
-        <h1>{counter}</h1>
+        <h1>{counter.count}</h1>
         <button onClick={CounterActions.increment}>+</button>
         <button onClick={CounterActions.decrement}>-</button>
       </div>

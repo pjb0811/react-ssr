@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { handleActions, createAction } from 'redux-actions';
 // import { Map, List } from 'immutable';
 import loadData from '../../lib/loadData';
 
@@ -6,13 +6,20 @@ const GET_POST = 'GET_POST';
 const GET_POST_PENDING = 'GET_POST_LOADING';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
 const GET_POST_FAILURE = 'GET_POST_ERROR';
-
+/*
 export const getPost = path => ({
   type: GET_POST,
   payload: loadData(path),
 });
+*/
 
-/* const initialState = Map({
+export const getPost = createAction(
+  GET_POST,
+  async path => await loadData(path)
+);
+
+/*
+const initialState = Map({
   pending: false,
   error: false,
   data: List([
@@ -32,16 +39,16 @@ const initialState = {
 
 export default handleActions(
   {
-    [GET_POST_PENDING]: state => {
+    [GET_POST_PENDING]: () => {
       return {
-        ...state,
         pending: true,
         error: false,
+        data: [],
       };
       // return state.set('pending', true).set('error', false);
     },
 
-    [GET_POST_SUCCESS]: (state, action) => {
+    [GET_POST_SUCCESS]: (_, action) => {
       let data = Array.isArray(action.payload)
         ? action.payload
         : [action.payload];
@@ -52,7 +59,8 @@ export default handleActions(
         data,
       };
 
-      /* return state
+      /*
+      return state
         .set('pending', false)
         .set('error', false)
         .set(
@@ -65,13 +73,14 @@ export default handleActions(
               })
             ),
           ])
-        ); */
+        );
+      */
     },
-    [GET_POST_FAILURE]: state => {
+    [GET_POST_FAILURE]: () => {
       return {
-        ...state,
         pending: false,
         error: true,
+        data: [],
       };
       // return state.set('pending', false).set('error', true);
     },
