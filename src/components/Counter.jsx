@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as counterActions from '../redux/reducers/counter';
-import * as postActions from '../redux/reducers/post';
 
 class Counter extends Component {
   /*
@@ -29,8 +28,20 @@ class Counter extends Component {
     return (
       <div>
         <h1>{counter.count}</h1>
-        <button onClick={CounterActions.increment}>+</button>
-        <button onClick={CounterActions.decrement}>-</button>
+        <button
+          onClick={() => {
+            CounterActions.increment();
+          }}
+        >
+          +
+        </button>
+        <button
+          onClick={() => {
+            CounterActions.decrement();
+          }}
+        >
+          -
+        </button>
       </div>
     );
   }
@@ -42,6 +53,5 @@ export default connect(
   }),
   dispatch => ({
     CounterActions: bindActionCreators(counterActions, dispatch),
-    PostActions: bindActionCreators(postActions, dispatch),
   })
 )(Counter);

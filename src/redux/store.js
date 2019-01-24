@@ -12,9 +12,9 @@ const createStoreWithMiddleware = compose(
   )
 )(createStore);
 
-export default function(initialState = {}) {
-  return createStoreWithMiddleware(reducers, initialState);
+export default (initialState = {}) => {
   /* return createStore(
     reducers
   ) */
-}
+  return createStoreWithMiddleware(reducers, initialState);
+};
