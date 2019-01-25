@@ -15,13 +15,13 @@ class Posts extends Component {
     };
   } */
 
-  async componentDidMount() {
+  componentDidMount() {
     const { PostActions, match } = this.props;
 
     if (window.__INIT_DATA__) {
       window.__INIT_DATA__ = null;
     } else {
-      await PostActions.getPost(match.url);
+      PostActions.getPost(match.url);
     }
 
     /*
