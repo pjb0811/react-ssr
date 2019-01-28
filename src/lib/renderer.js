@@ -44,22 +44,16 @@ const renderer = async ({ req, html }) => {
   let bundles = getBundles(stats, modules);
 
   return {
-    html: html
-      .replace(
-        '<div id="root"></div>',
-        `<div id="root">${app}</div>
-        <script>window.__INIT_DATA__ = ${serialize(
-          initStore.getState()
-        )}</script>`
-      )
-      .replace(
-        '</body>',
-        `${bundles
-          .filter(bundle => !bundle.file.includes('.map'))
-          .map(bundle => `<script src="${bundle.publicPath}"></script>`)
-          .join('\n')}
-        </body>`
-      ),
+    html: html.replace(
+      '<div id="root"></div>',
+      `<div id="root">${app}</div>
+      <script>window.__INIT_DATA__ = ${serialize(initStore.getState())}</script>
+      ${bundles
+        .filter(bundle => !bundle.file.includes('.map'))
+        .map(bundle => `<script src="${bundle.publicPath}"></script>`)
+        .join('\n')}
+      `
+    ),
     context,
   };
 };

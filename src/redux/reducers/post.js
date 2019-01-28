@@ -6,6 +6,7 @@ const GET_POST = 'GET_POST';
 const GET_POST_LOADING = 'GET_POST_LOADING';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
 const GET_POST_ERROR = 'GET_POST_ERROR';
+
 /*
 export const getPost = path => ({
   type: GET_POST,
@@ -19,7 +20,7 @@ export const getPost = createAction(
 );
 
 const initialState = {
-  pending: false,
+  loading: false,
   error: false,
   data: [],
 };
@@ -28,11 +29,11 @@ export default handleActions(
   {
     [GET_POST_LOADING]: () => {
       return {
-        pending: true,
+        loading: true,
         error: false,
         data: [],
       };
-      // return state.set('pending', true).set('error', false);
+      // return state.set('loading', true).set('error', false);
     },
 
     [GET_POST_SUCCESS]: (_, action) => {
@@ -41,18 +42,18 @@ export default handleActions(
         : [action.payload];
 
       return {
-        pending: false,
+        loading: false,
         error: false,
         data,
       };
     },
     [GET_POST_ERROR]: () => {
       return {
-        pending: false,
+        loading: false,
         error: true,
         data: [],
       };
-      // return state.set('pending', false).set('error', true);
+      // return state.set('loading', false).set('error', true);
     },
   },
   initialState

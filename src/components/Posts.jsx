@@ -53,6 +53,8 @@ class Posts extends Component {
         <div>{JSON.stringify(match)}</div>
         <div>{JSON.stringify(queryString.parse(location.search))}</div>
         */}
+        {post.loading && '...loading'}
+        {post.error && 'error!'}
         {post.data.map((item, i) => (
           <div key={i}>{item.title}</div>
         ))}

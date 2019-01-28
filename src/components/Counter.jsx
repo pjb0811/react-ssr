@@ -14,8 +14,6 @@ class Counter extends Component {
   }
   */
 
-  state = {};
-
   componentDidMount() {
     if (window.__INIT_DATA__) {
       window.__INIT_DATA__ = null;
