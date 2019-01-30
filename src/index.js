@@ -7,9 +7,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './redux/store';
 
+const initStore = store(window.__INIT_DATA__ || {});
+
+(async () => {
+  initStore.dispatch({
+    type: 'GET_POST',
+    payload: '/posts/1',
+  });
+  console.log(initStore.getState().post);
+})();
+
 ReactDOM.render(
   <BrowserRouter>
-    <Provider store={store(window.__INIT_DATA__ || {})}>
+    <Provider store={initStore}>
       <App />
     </Provider>
   </BrowserRouter>,

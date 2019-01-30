@@ -27,7 +27,6 @@ const renderer = async ({ req, html }) => {
     ? await currentRoute.loadData(req.url)
     : {};
   const initStore = store(initState);
-
   const context = {};
   let modules = [];
 

@@ -1,11 +1,12 @@
 import { handleActions, createAction } from 'redux-actions';
 // import { Map, List } from 'immutable';
-import loadData from '../../lib/loadData';
+// import loadData from '../../lib/loadData';
 
-const GET_POST = 'GET_POST';
-const GET_POST_LOADING = 'GET_POST_LOADING';
-const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
-const GET_POST_ERROR = 'GET_POST_ERROR';
+export const GET_POST = 'GET_POST';
+export const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
+export const GET_POST_ERROR = 'GET_POST_ERROR';
+
+export const getPost = createAction(GET_POST);
 
 /*
 export const getPost = path => ({
@@ -14,10 +15,12 @@ export const getPost = path => ({
 });
 */
 
+/*
 export const getPost = createAction(
   GET_POST,
   async path => await loadData(path)
 );
+*/
 
 const initialState = {
   loading: false,
@@ -27,7 +30,7 @@ const initialState = {
 
 export default handleActions(
   {
-    [GET_POST_LOADING]: () => {
+    [GET_POST]: () => {
       return {
         loading: true,
         error: false,
@@ -37,9 +40,11 @@ export default handleActions(
     },
 
     [GET_POST_SUCCESS]: (_, action) => {
-      let data = Array.isArray(action.payload)
-        ? action.payload
-        : [action.payload];
+      let { data } = action.payload;
+
+      if (!Array.isArray(data)) {
+        data = [data];
+      }
 
       return {
         loading: false,
