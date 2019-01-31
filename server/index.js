@@ -1,6 +1,5 @@
 const express = require('express');
 const fs = require('fs');
-const pretty = require('pretty');
 const renderer = require('../build.server/lib/renderer');
 const Loadable = require('react-loadable');
 
@@ -10,18 +9,8 @@ const indexHTML = fs.readFileSync('build/index.html', 'utf8');
 
 app.use(express.static('build', { index: [] }));
 
-app.all('*', async (req, res) => {
-  const { html, context } = await renderer({ req, html: indexHTML });
-
-  if (context.status === 404) {
-    res.status(404);
-  }
-
-  if (context.status === 301) {
-    return res.redirect(301, context.url);
-  }
-
-  res.send(pretty(html));
+app.all('*', (req, res) => {
+  renderer({ req, res, html: indexHTML });
 });
 
 Loadable.preloadAll().then(() => {

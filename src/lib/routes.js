@@ -1,9 +1,9 @@
 import React from 'react';
 // import loadData from './loadData';
 import Loadable from 'react-loadable';
-import store from '../redux/store';
+// import store from '../redux/store';
 import * as postActions from '../redux/reducers/post';
-import rootSaga from '../redux/sagas';
+// import rootSaga from '../redux/sagas';
 
 // import Home from '../components/Home'
 // import About from '../components/About'
@@ -37,19 +37,8 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => {
-      const initStore = store();
-
-      initStore
-        .runSaga(rootSaga)
-        .toPromise()
-        .then(() => {
-          console.log(initStore.getState());
-        });
-      initStore.dispatch(postActions.getPost(path));
-      initStore.close();
-
-      return {};
+    loadData: async (store, path) => {
+      store.dispatch(postActions.getPost(path));
     },
   },
   {
@@ -58,10 +47,8 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async path => {
-      // await initStore.dispatch(postActions.getPost(path));
-      // return initStore.getState();
-      return {};
+    loadData: async (store, path) => {
+      store.dispatch(postActions.getPost(path));
     },
   },
   {

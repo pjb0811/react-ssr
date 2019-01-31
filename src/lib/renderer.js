@@ -11,8 +11,9 @@ import serialize from 'serialize-javascript';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 import rootSaga from '../redux/sagas';
+import pretty from 'pretty';
 
-const renderer = async ({ req, html }) => {
+const renderer = ({ req, res, html }) => {
   /*
   const matchingRoutes = matchRoutes(routes, req.url);
   const promises = matchingRoutes.map(async ({ route }) => {
@@ -24,38 +25,55 @@ const renderer = async ({ req, html }) => {
   */
 
   const currentRoute = routes.find(route => matchPath(req.url, route)) || {};
-  const initState = currentRoute.loadData
+  /* const initState = currentRoute.loadData
     ? await currentRoute.loadData(req.url)
     : {};
-  const initStore = store(initState);
+  const initStore = store(initState); */
+  const initStore = store();
   const context = {};
   let modules = [];
 
-  const app = renderToString(
-    <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-      <StaticRouter location={req.url} context={context}>
-        <Provider store={initStore}>
-          <App />
-        </Provider>
-      </StaticRouter>
-    </Loadable.Capture>
-  );
+  initStore
+    .runSaga(rootSaga)
+    .toPromise()
+    .then(() => {
+      const app = renderToString(
+        <Loadable.Capture report={moduleName => modules.push(moduleName)}>
+          <StaticRouter location={req.url} context={context}>
+            <Provider store={initStore}>
+              <App />
+            </Provider>
+          </StaticRouter>
+        </Loadable.Capture>
+      );
 
-  let bundles = getBundles(stats, modules);
+      const bundles = getBundles(stats, modules);
+      const renderHTML = html.replace(
+        '<div id="root"></div>',
+        `<div id="root">${app}</div>
+        <script>window.__INIT_DATA__ = ${serialize(
+          initStore.getState()
+        )}</script>
+        ${bundles
+          .filter(bundle => !bundle.file.includes('.map'))
+          .map(bundle => `<script src="${bundle.publicPath}"></script>`)
+          .join('\n')}
+        `
+      );
 
-  return {
-    html: html.replace(
-      '<div id="root"></div>',
-      `<div id="root">${app}</div>
-      <script>window.__INIT_DATA__ = ${serialize(initStore.getState())}</script>
-      ${bundles
-        .filter(bundle => !bundle.file.includes('.map'))
-        .map(bundle => `<script src="${bundle.publicPath}"></script>`)
-        .join('\n')}
-      `
-    ),
-    context,
-  };
+      if (context.status === 404) {
+        res.status(404);
+      }
+
+      if (context.status === 301) {
+        return res.redirect(301, context.url);
+      }
+
+      res.send(pretty(renderHTML));
+    });
+
+  currentRoute.loadData && currentRoute.loadData(initStore, req.url);
+  initStore.close();
 };
 
 module.exports = renderer;
