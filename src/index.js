@@ -6,16 +6,10 @@ import { BrowserRouter } from 'react-router-dom';
 // import Loadable from 'react-loadable';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import rootSaga from './redux/sagas';
 
 const initStore = store(window.__INIT_DATA__ || {});
-
-(async () => {
-  initStore.dispatch({
-    type: 'GET_POST',
-    payload: '/posts/1',
-  });
-  console.log(initStore.getState().post);
-})();
+initStore.runSaga(rootSaga);
 
 ReactDOM.render(
   <BrowserRouter>

@@ -2,11 +2,13 @@ import { handleActions, createAction } from 'redux-actions';
 // import { Map, List } from 'immutable';
 // import loadData from '../../lib/loadData';
 
-export const GET_POST = 'GET_POST';
-export const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
-export const GET_POST_ERROR = 'GET_POST_ERROR';
+const GET_POST = 'GET_POST';
+const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
+const GET_POST_ERROR = 'GET_POST_ERROR';
 
 export const getPost = createAction(GET_POST);
+export const getPostSuccess = createAction(GET_POST_SUCCESS);
+export const getPostError = createAction(GET_POST_ERROR);
 
 /*
 export const getPost = path => ({

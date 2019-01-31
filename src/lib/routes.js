@@ -3,6 +3,7 @@ import React from 'react';
 import Loadable from 'react-loadable';
 import store from '../redux/store';
 import * as postActions from '../redux/reducers/post';
+import rootSaga from '../redux/sagas';
 
 // import Home from '../components/Home'
 // import About from '../components/About'
@@ -13,8 +14,6 @@ import * as postActions from '../redux/reducers/post';
 const loading = () => {
   return <div>loading...</div>;
 };
-
-const initStore = store();
 
 const Routes = [
   {
@@ -39,8 +38,18 @@ const Routes = [
       loading,
     }),
     loadData: async path => {
-      await initStore.dispatch(postActions.getPost(path));
-      return initStore.getState();
+      const initStore = store();
+
+      initStore
+        .runSaga(rootSaga)
+        .toPromise()
+        .then(() => {
+          console.log(initStore.getState());
+        });
+      initStore.dispatch(postActions.getPost(path));
+      initStore.close();
+
+      return {};
     },
   },
   {
@@ -50,8 +59,9 @@ const Routes = [
       loading,
     }),
     loadData: async path => {
-      await initStore.dispatch(postActions.getPost(path));
-      return initStore.getState();
+      // await initStore.dispatch(postActions.getPost(path));
+      // return initStore.getState();
+      return {};
     },
   },
   {

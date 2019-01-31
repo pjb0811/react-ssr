@@ -10,6 +10,7 @@ import stats from '../../build/react-loadable.json';
 import serialize from 'serialize-javascript';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
+import rootSaga from '../redux/sagas';
 
 const renderer = async ({ req, html }) => {
   /*
