@@ -4,11 +4,11 @@ import loadData from '../../lib/loadData';
 
 export function* getPost() {
   while (true) {
-    const { payload } = yield take(post.getPost);
-    const data = yield call(loadData, payload);
-    if (data) {
+    try {
+      const { payload } = yield take(post.getPost);
+      const data = yield call(loadData, payload);
       yield put(post.getPostSuccess({ data }));
-    } else {
+    } catch (e) {
       yield put(post.getPostError());
     }
   }
