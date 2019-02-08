@@ -37,7 +37,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async (store, path) => {
+    loadData: (store, path) => {
       store.dispatch(postActions.getPost(path));
     },
   },
@@ -47,7 +47,7 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: async (store, path) => {
+    loadData: (store, path) => {
       store.dispatch(postActions.getPost(path));
     },
   },

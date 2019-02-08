@@ -66,7 +66,7 @@ const renderer = ({ req, res, html }) => {
       }
 
       if (context.status === 301) {
-        return res.redirect(301, context.url);
+        res.redirect(301, context.url);
       }
 
       res.send(pretty(renderHTML));
