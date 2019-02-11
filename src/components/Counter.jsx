@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as counterActions from '../redux/reducers/counter';
+import { observer, inject } from 'mobx-react';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import * as counterActions from '../redux/reducers/counter';
 
+@inject('counter')
+@observer
 class Counter extends Component {
   /*
   static getDerivedStateFromProps(nextProps) {
@@ -21,21 +24,21 @@ class Counter extends Component {
   }
 
   render() {
-    const { counter, CounterActions } = this.props;
+    const { counter } = this.props;
 
     return (
       <div>
         <h1>{counter.count}</h1>
         <button
           onClick={() => {
-            CounterActions.increment();
+            counter.increment();
           }}
         >
           +
         </button>
         <button
           onClick={() => {
-            CounterActions.decrement();
+            counter.decrement();
           }}
         >
           -
@@ -45,11 +48,4 @@ class Counter extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    counter: state.counter,
-  }),
-  dispatch => ({
-    CounterActions: bindActionCreators(counterActions, dispatch),
-  })
-)(Counter);
+export default Counter;

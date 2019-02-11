@@ -2,8 +2,10 @@ import React from 'react';
 // import loadData from './loadData';
 import Loadable from 'react-loadable';
 // import store from '../redux/store';
-import * as postActions from '../redux/reducers/post';
+// import * as postActions from '../redux/reducers/post';
 // import rootSaga from '../redux/sagas';
+
+import { initStore } from '../mobx/Store';
 
 // import Home from '../components/Home'
 // import About from '../components/About'
@@ -14,6 +16,8 @@ import * as postActions from '../redux/reducers/post';
 const loading = () => {
   return <div>loading...</div>;
 };
+
+const store = initStore();
 
 const Routes = [
   {
@@ -37,8 +41,11 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: (store, path) => {
-      store.dispatch(postActions.getPost(path));
+    loadData: async path => {
+      const { post } = store;
+      await post.getPost(path);
+      return { ...store };
+      // store.dispatch(postActions.getPost(path));
     },
   },
   {
@@ -47,8 +54,11 @@ const Routes = [
       loader: () => import('../components/Posts'),
       loading,
     }),
-    loadData: (store, path) => {
-      store.dispatch(postActions.getPost(path));
+    loadData: async path => {
+      const { post } = store;
+      await post.getPost(path);
+      return { ...store };
+      // store.dispatch(postActions.getPost(path));
     },
   },
   {

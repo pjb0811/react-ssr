@@ -2,18 +2,20 @@ import React, { Component } from 'react';
 import withLayout from './withLayout';
 // import loadData from '../lib/loadData';
 // import queryString from 'query-string';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as postActions from '../redux/reducers/post';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
+// import * as postActions from '../redux/reducers/post';
+import { observer, inject } from 'mobx-react';
 
+@inject('post')
+@observer
 class Posts extends Component {
   componentDidMount() {
-    const { PostActions, match } = this.props;
-
+    const { post, match } = this.props;
     if (window.__INIT_DATA__) {
       window.__INIT_DATA__ = null;
     } else {
-      PostActions.getPost(match.url);
+      post.getPost(match.url);
     }
   }
 
@@ -28,8 +30,8 @@ class Posts extends Component {
         <div>{JSON.stringify(match)}</div>
         <div>{JSON.stringify(queryString.parse(location.search))}</div>
         */}
-        {post.loading && '...loading'}
-        {post.error && 'error!'}
+        {post.state.loading && '...loading'}
+        {post.state.error && 'error!'}
         {post.data.map((item, i) => (
           <div key={i}>{item.title}</div>
         ))}
@@ -38,11 +40,4 @@ class Posts extends Component {
   }
 }
 
-export default connect(
-  state => ({
-    post: state.post,
-  }),
-  dispatch => ({
-    PostActions: bindActionCreators(postActions, dispatch),
-  })
-)(withLayout(Posts));
+export default withLayout(Posts);
