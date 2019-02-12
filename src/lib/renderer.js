@@ -28,10 +28,6 @@ const renderer = async ({ req, html }) => {
   */
 
   const currentRoute = routes.find(route => matchPath(req.url, route)) || {};
-  /* const initState = currentRoute.loadData
-    ? await currentRoute.loadData(req.url)
-    : {};
-  const initStore = store(initState); */
   const initState = currentRoute.loadData
     ? await currentRoute.loadData(req.url)
     : {};
