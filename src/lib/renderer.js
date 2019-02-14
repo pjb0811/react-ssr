@@ -36,7 +36,7 @@ const renderer = async ({ req, html }) => {
   const context = {};
   let modules = [];
 
-  const app = await renderToString(
+  const app = renderToString(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <StaticRouter location={req.url} context={context}>
         <Provider {...store}>
