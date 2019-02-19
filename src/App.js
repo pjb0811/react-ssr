@@ -11,6 +11,11 @@ class App extends Component {
         <Helmet>
           <title>My App</title>
           <meta name="description" content="my app" />
+          <style>
+            {`body {
+              background-color: green 
+            }`}
+          </style>
         </Helmet>
         <Switch>
           {/* {renderRoutes(routes)} */}

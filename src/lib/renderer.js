@@ -15,6 +15,7 @@ import serialize from 'serialize-javascript';
 import { toJS } from 'mobx';
 import { Provider } from 'mobx-react';
 import { initStore } from '../mobx/Store';
+import { Helmet } from 'react-helmet';
 
 const renderer = async ({ req, html }) => {
   /*
@@ -46,21 +47,30 @@ const renderer = async ({ req, html }) => {
     </Loadable.Capture>
   );
 
+  const helmet = Helmet.renderStatic();
   const bundles = getBundles(stats, modules);
-  const renderHTML = html.replace(
-    '<div id="root"></div>',
-    `<div id="root">${app}</div>
+  const renderHTML = html
+    .replace(
+      '</head>',
+      `${helmet.title.toString()}
+      ${helmet.meta.toString()}
+      ${helmet.style.toString()}
+      </head>`
+    )
+    .replace(
+      '<div id="root"></div>',
+      `<div id="root">${app}</div>
     <script>window.__INIT_DATA__ = ${serialize(toJS(store))}</script>
     ${bundles
       .filter(bundle => !bundle.file.includes('.map'))
       .map(bundle => `<script src="${bundle.publicPath}"></script>`)
       .join('\n')}
     `
-  );
+    );
 
   return {
     html: renderHTML,
-    context,
+    context
   };
 };
 

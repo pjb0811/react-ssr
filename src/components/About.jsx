@@ -9,6 +9,11 @@ const About = () => {
       <Helmet>
         <title>About</title>
         <meta name="description" content="about" />
+        <style>
+          {`body {
+              font-size: 20px;
+            }`}
+        </style>
       </Helmet>
       <h1>About</h1>
       <Counter />
